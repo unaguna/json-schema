@@ -60,6 +60,14 @@ function validateMinimum(element: number, schema: NumberSchema): boolean {
     }
   }
 
+  // schema.exclusiveMinimum が数値なら判定する
+  if (typeof schema.exclusiveMinimum === "number") {
+    // 不正なら判定終了
+    if (element <= schema.exclusiveMinimum) {
+      return false;
+    }
+  }
+
   // ここまで不正がないなら、正しい。
   return true;
 }

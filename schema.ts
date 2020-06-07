@@ -24,7 +24,7 @@ export type StringSchema = {
 export type NumberSchema = {
   type: Type | Type[];
   minimum?: number;
-  exclusiveMinimum?: boolean; // TODO: 数値指定もできるように
+  exclusiveMinimum?: number | boolean;
 };
 
 export type ObjectSchema = {

@@ -124,3 +124,42 @@ Deno.test("When validate by `minimum` and `exclusiveMinimum: true`, then invalid
   assertEquals(validateResult.invalidProperty, ["p0", "p1"]);
   assertEquals(validateResult.invalidType, "NUMBER_OUT_OF_RANGE");
 });
+
+Deno.test("When validate by `exclusiveMinimum: number`, then invalid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    exclusiveMinimum: 100,
+  };
+
+  const validateResult = validateNumber(100, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, false);
+  assertEquals(validateResult.invalidProperty, ["p0", "p1"]);
+  assertEquals(validateResult.invalidType, "NUMBER_OUT_OF_RANGE");
+});
+
+Deno.test("When validate by `exclusiveMinimum: number`, then valid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    exclusiveMinimum: 100,
+  };
+
+  const validateResult = validateNumber(100.1, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, true);
+  assertEquals(validateResult.invalidProperty, undefined);
+  assertEquals(validateResult.invalidType, undefined);
+});
+
+Deno.test("When validate by `exclusiveMinimum: number`, then invalid. (2)", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    exclusiveMinimum: 100,
+  };
+
+  const validateResult = validateNumber(99.9, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, false);
+  assertEquals(validateResult.invalidProperty, ["p0", "p1"]);
+  assertEquals(validateResult.invalidType, "NUMBER_OUT_OF_RANGE");
+});
