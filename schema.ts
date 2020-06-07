@@ -23,6 +23,7 @@ export type StringSchema = {
 
 export type NumberSchema = {
   type: Type | Type[];
+  multipleOf?: number;
   minimum?: number;
   exclusiveMinimum?: number | boolean;
   maximum?: number;

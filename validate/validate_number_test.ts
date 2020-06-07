@@ -367,3 +367,81 @@ Deno.test("When validate number by range (10, 100), then invalid. (2)", () => {
   assertEquals(validateResult.invalidProperty, ["p0", "p1"]);
   assertEquals(validateResult.invalidType, "NUMBER_OUT_OF_RANGE");
 });
+
+Deno.test("When validate 0 be multiplf of 100, then valid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    multipleOf: 100,
+  };
+
+  const validateResult = validateNumber(0, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, true);
+  assertEquals(validateResult.invalidProperty, undefined);
+  assertEquals(validateResult.invalidType, undefined);
+});
+
+Deno.test("When validate 100 be multiplf of 100, then valid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    multipleOf: 100,
+  };
+
+  const validateResult = validateNumber(100, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, true);
+  assertEquals(validateResult.invalidProperty, undefined);
+  assertEquals(validateResult.invalidType, undefined);
+});
+
+Deno.test("When validate 150 be multiplf of 100, then invalid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    multipleOf: 100,
+  };
+
+  const validateResult = validateNumber(150, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, false);
+  assertEquals(validateResult.invalidProperty, ["p0", "p1"]);
+  assertEquals(validateResult.invalidType, "NUMBER_NOT_MULTIPLE");
+});
+
+Deno.test("When validate 100.0 be multiplf of 100, then valid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    multipleOf: 100,
+  };
+
+  const validateResult = validateNumber(100.0, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, true);
+  assertEquals(validateResult.invalidProperty, undefined);
+  assertEquals(validateResult.invalidType, undefined);
+});
+
+Deno.test("When validate 31.4 be multiplf of 3.14, then valid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    multipleOf: 3.14,
+  };
+
+  const validateResult = validateNumber(31.4, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, true);
+  assertEquals(validateResult.invalidProperty, undefined);
+  assertEquals(validateResult.invalidType, undefined);
+});
+
+Deno.test("When validate 31.5 be multiplf of 3.14, then invalid.", () => {
+  const schema: NumberSchema = {
+    type: "number",
+    multipleOf: 3.14,
+  };
+
+  const validateResult = validateNumber(31.5, schema, ["p0", "p1"]);
+
+  assertEquals(validateResult.isValid, false);
+  assertEquals(validateResult.invalidProperty, ["p0", "p1"]);
+  assertEquals(validateResult.invalidType, "NUMBER_NOT_MULTIPLE");
+});
