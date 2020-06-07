@@ -42,6 +42,15 @@ function validateMain(
     };
   }
 
+  // 倍数判定
+  if (!validateMultiple(element, schema)) {
+    return {
+      isValid: false,
+      invalidProperty: path,
+      invalidType: "NUMBER_NOT_MULTIPLE",
+    };
+  }
+
   // element is valid when passes checklist.
   return {
     isValid: true,
@@ -106,6 +115,26 @@ function validateMaximum(element: number, schema: NumberSchema): boolean {
   if (typeof schema.exclusiveMaximum === "number") {
     // 不正なら判定終了
     if (element >= schema.exclusiveMaximum) {
+      return false;
+    }
+  }
+
+  // ここまで不正がないなら、正しい。
+  return true;
+}
+
+/**
+ * 指定の数の倍数かどうか判定する。
+ * 
+ * @param element 判定対象
+ * @param schema 判定に使用するスキーマ
+ * @return 正しければ true、不正なら false。
+ */
+function validateMultiple(element: number, schema: NumberSchema): boolean {
+  // schema.multipleOf に指定があるなら判定する
+  if (schema.multipleOf !== undefined) {
+    // 不正なら判定終了
+    if (!Number.isInteger(element / schema.multipleOf)) {
       return false;
     }
   }
