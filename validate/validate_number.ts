@@ -47,12 +47,11 @@ function validateMain(
  * @return 正しければ true、不正なら false。
  */
 function validateMinimum(element: number, schema: NumberSchema): boolean {
-
   // schema.mimimum に指定があるなら判定する
-  if(schema.minimum !== undefined) {
+  if (schema.minimum !== undefined) {
     // 不正なら判定終了
-    if(element < schema.minimum) {
-      return false
+    if (element < schema.minimum) {
+      return false;
     }
   }
 
