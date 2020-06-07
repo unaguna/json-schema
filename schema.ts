@@ -25,6 +25,8 @@ export type NumberSchema = {
   type: Type | Type[];
   minimum?: number;
   exclusiveMinimum?: number | boolean;
+  maximum?: number;
+  exclusiveMaximum?: number | boolean;
 };
 
 export type ObjectSchema = {
