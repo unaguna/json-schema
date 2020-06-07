@@ -8,9 +8,12 @@ import validateObject from "./validate/validate_object.ts";
  * 
  * - `"TYPE_ERROR"` - validate 対象の型が Json で認められていない型であるか、スキーマの `type` プロパティが不正な文字列である。
  * - `"TYPE_MISMATCH"` - validate 対象の型がスキーマの `type` と一致していない。
- * 
+ * - `"NUMBER_OUT_OF_RANGE"` - 数値がスキーマが規定する範囲に収まらない。
  */
-export type InvalidType = "TYPE_ERROR" | "TYPE_MISMATCH";
+export type InvalidType =
+  | "TYPE_ERROR"
+  | "TYPE_MISMATCH"
+  | "NUMBER_OUT_OF_RANGE";
 
 /**
  * validation の結果

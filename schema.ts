@@ -23,6 +23,7 @@ export type StringSchema = {
 
 export type NumberSchema = {
   type: Type | Type[];
+  minimum?: number;
 };
 
 export type ObjectSchema = {
