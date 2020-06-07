@@ -49,8 +49,13 @@ function validateMain(
 function validateMinimum(element: number, schema: NumberSchema): boolean {
   // schema.mimimum に指定があるなら判定する
   if (schema.minimum !== undefined) {
+    // schema.exclusiveMinimum が true なら「以上」ではなく「超」を要する。
+    const exclude = typeof schema.exclusiveMinimum === "boolean"
+      ? schema.exclusiveMinimum
+      : false;
+
     // 不正なら判定終了
-    if (element < schema.minimum) {
+    if (element < schema.minimum || exclude && element <= schema.minimum) {
       return false;
     }
   }
